@@ -1,0 +1,49 @@
+Emilia Ochoa (eochoa6)
+Angi Benton (abenton3)
+
+Our process was a bit more complex than expected, so we have attached our scripts and source data files - we hope they can offer extra clarification if needed. 
+
+— Data Sources —
+* unemployment_monthly.csv <- https://www.bls.gov/data/
+* GDP_percent_change_annual.csv <- https://fred.stlouisfed.org/
+* sp-500-historical-annual-returns.csv <-  https://www.macrotrends.net/
+* presidents.csv <- https://www.kaggle.com/harshitagpt/us-presidents
+* billboard_yearly.csv <- https://github.com/AntiDeprime/billboard-year-end-wiki-scraper/blob/master/billboard-year-end-wiki.csv
+* hotSpotify.csv <-  https://data.world/kcmillersean/billboard-hot-100-1958-2017
+
+— General process —  
+* Download csv files from the sources listed 
+* Open these csv files as pandas data frames in python scripts
+* Manipulate / combine / separate these dataframes until we are left with one data frame per relation
+* Export each dataframe as a text file (comma separated)
+
+Note:
+For all relations that span a certain number of years, we restricted them to 1959-2017 so that all of our data refers to the same time period. Our Billboard data is the source of this constraint. 
+
+— Specific origins of each relation — 
+
+>> EconomicHealth: see preprocessing_econ.py
+Essentially column concatenation, from:  
+GDP_percent_change_annual.csv,
+sp-500-historical-annual-returns.csv, 
+and unemployment_monthly.csv (we had to take the mean over 12 months to convert to annual). 
+
+>> Administration: see preprocessing_admins.py
+presidents.csv was pretty close to what we wanted, we just had to drop irrelevant columns (vice, previous), and convert the start and end date strings to only years.  
+
+>> Music data (Song, BillboardChart, Genre, SongGenre relations): see preprocessing_music.py
+
+We separated billboard_yearly.csv into Song and BillboardChart, to reduce redundancy (some songs occupied chart positions more than once). We added songIds to help with this, giving a unique integer to songs with distinct (title, artistname). Then we associated songIds with a billboard chart year and chart position.  
+
+Then, we added more attributes to Song based on song metadata from Spotify hotSpotify.csv, such as tempo, key, and genre. hotSpotify.csv also had extraneous attributes that weren't relevant to our database (album, spotify_track_url, spotify_track_duration, etc.)
+
+The attribute “genre” was actually a JSON string representation of an array of multiple genre names, so we had parse this string, and make a new relation, SongGenre, to record associations between a songId and a single genre name. We also maintain a Genre relation (Genre.txt), which is a single attribute “lookup table” of all genres in this project. 
+
+
+- Smalls Justification -
+
+Because of the nature of what we're measuring, we thought that we could make the most out of a small set of data if we focus on just a few years in a few administrations, and the top 5 songs within those years. 
+
+We picked the years 1988, 1995, 2009, from the Reagan, Clinton, and Obama administratinos respectively. We think together these can give us a sense of music trends over time, and how it changed according to economic and political progress. 
+
+To make the foreign constraints work and build our small sql database, we made sure that these were consistent across our -small.txt files, ( SongGenre-small.txt only references songs in Song-small.txt, etc. )

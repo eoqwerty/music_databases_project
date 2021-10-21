@@ -1,0 +1,23 @@
+Emilia Ochoa (eochoa6)
+Angi Benton (abenton3)
+Project Phase D 
+
+—— PART 0: Updates From Phase C —— 
+(1) We had to update the formatting of our RelationName.txt files,  because we realized that using a ‘,’ separator was causing problems for song names that name commas in them. We fixed this by using a ‘\t’ separator. We updated the scripts that generate our text files, as well as the sql setup scripts. 
+
+(2) We noticed that billboard_yearly.csv was missing the years 1970, 2012 and 2013 for some reason. We manually added these years, sourcing them from wikipedia. We matched the new data to the format of billboard_yearly.csv, and then simply concatenated it with 2013 and 2012 data, and then preprocessed the billboard_yearly_FIXED.csv as we did the original. 
+ 
+(3) We decided to add two columns to Song that we previously ignored from Spotify data, namely ‘explicit’ and ‘popularity’. 
+
+(4) In our create table statement for the Song relation, we realized that our input validation was not turning empty strings into NULL values (it was reading them as zeros instead), so we explicitly handle that now. We also added more strict domain constraints for the spotify song attributes.
+
+
+Updated files (included in submission):
+* setup.sql
+* Song.txt
+* SongGenre.txt
+* Genre.txt
+* BillboardChart.txt
+* Administration.txt
+* EconomicHealth.txt
+

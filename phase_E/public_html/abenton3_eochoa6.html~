@@ -1,0 +1,45 @@
+<!-- hw4.html  Do not modify this file. -->
+
+<html>
+   <body>
+
+        <!-- (a) -->
+        <h2> 1. What artist had the most songs in the top 100s during each U.S presidents administration?        </h2>
+        <form action="TopArtistByPresident.php" method="post">
+            <!--president: <input type="text" name="president"> <br/>-->
+            <select id="president" name="president">
+                <option value="Barack Obama">Barack Obama</option>
+                <option value="George W. Bush">George W. Bush</option>
+                <option value="Bill Clinton">Bill Clinton</option>
+                <option value="George H.W. Bush">George H.W. Bush</option>
+            </select>
+            <input type="submit">
+        </form>
+
+        <br/><br/>
+
+        <!-- (b) -->
+        <h2> Show Percentages and Weighted Averages</h2>
+        <form action="Hw4_ShowPercentages.php" method="post">
+                SSN: <input type="text" name="SSN"> <br/>
+                <input type="submit">
+        </form>
+        <br/><br/>
+
+        <!-- (c) -->
+        <h2> Full Table of Raw Scores</h2>
+        <form action="Hw4_ShowAllRawScores.php" method="post">
+                password: <input type="text" name="password"> <br/>
+                <input type="submit">
+        </form>
+        <br/><br/>
+
+        <!-- (d) -->
+        <h2> Full Table of Percentages with Weighted Averages</h2>
+        <form action="Hw4_ShowAllCourseAverages.php" method="post">
+                password: <input type="text" name="password"> <br/>
+                <input type="submit">
+        </form>
+
+   </body>
+</html>
